@@ -1,0 +1,82 @@
+{
+	"name": "dataflowSalesFileOnly",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_sales_src",
+						"type": "DatasetReference"
+					},
+					"name": "sourceSalesFile"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_sink_salesfile",
+						"type": "DatasetReference"
+					},
+					"name": "sinkSalesdata"
+				}
+			],
+			"transformations": [
+				{
+					"name": "selectCols"
+				},
+				{
+					"name": "filterInvoice"
+				},
+				{
+					"name": "splitCountry"
+				},
+				{
+					"name": "aggregateInvNo"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          InvoiceNo as integer,",
+				"          StockCode as integer,",
+				"          Description as string,",
+				"          Quantity as integer,",
+				"          InvoiceDate as date,",
+				"          UnitPrice as integer,",
+				"          CustomerID as integer,",
+				"          Country as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> sourceSalesFile",
+				"sourceSalesFile select(mapColumn(",
+				"          InvoiceNo,",
+				"          Quantity,",
+				"          UnitPrice,",
+				"          CustomerID,",
+				"          Country",
+				"     ),",
+				"     partitionBy('hash', 1),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectCols",
+				"selectCols filter(InvoiceNo != 537669) ~> filterInvoice",
+				"filterInvoice split(Country == 'United Kingdom',",
+				"     Country == 'Australia',",
+				"     Country == 'Germany',",
+				"     disjoint: false,",
+				"     partitionBy('hash', 1)) ~> splitCountry@(UK, Australia, Germany, other)",
+				"splitCountry@UK aggregate(groupBy(InvoiceNo,",
+				"          CustomerID),",
+				"     UnitPrice = sum(toInteger(UnitPrice) * Quantity),",
+				"     partitionBy('hash', 1)) ~> aggregateInvNo",
+				"aggregateInvNo sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinkSalesdata"
+			]
+		}
+	}
+}

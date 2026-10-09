@@ -1,0 +1,15 @@
+{
+	"name": "B8-ADF-CI",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "939ac151-7d66-4cf9-b522-17b7c62b790d",
+		"tenantId": "c86f2b40-619b-455a-922c-ddf5b319ae1b"
+	}
+}

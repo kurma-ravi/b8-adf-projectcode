@@ -1,0 +1,23 @@
+{
+	"name": "ds_github_csvfile",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Github",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "kurma-ravi/b8-adf-demo/refs/heads/main/sales_invoice.csv"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

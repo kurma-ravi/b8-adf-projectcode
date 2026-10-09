@@ -1,0 +1,11 @@
+{
+	"name": "AZKV_OnpremDB",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://B8KVOnprem.vault.azure.net/"
+		}
+	}
+}

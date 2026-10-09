@@ -1,0 +1,29 @@
+{
+	"name": "LS_Onprem_MySql",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "MySql",
+		"typeProperties": {
+			"server": "127.0.0.1",
+			"port": 3306,
+			"database": "b8_mysqldb_practice",
+			"username": "root",
+			"sslMode": 1,
+			"useSystemTrustStore": 0,
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AZKV_OnpremDB",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "AKVOnpremPassword"
+			},
+			"driverVersion": "v2"
+		},
+		"connectVia": {
+			"referenceName": "SelfhostedintegrationRuntime1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"name": "TG_ProjectReady_Event",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "8_PL_ProjectReady",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/source-container/blobs/products.csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/a0609230-9da0-4322-8f4e-067691879805/resourceGroups/B8-RG-CI/providers/Microsoft.Storage/storageAccounts/b8datalakestorageaccount",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

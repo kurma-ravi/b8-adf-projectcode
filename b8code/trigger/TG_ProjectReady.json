@@ -1,0 +1,25 @@
+{
+	"name": "TG_ProjectReady",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "8_PL_ProjectReady",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 15,
+				"startTime": "2026-10-05T17:25:00",
+				"endTime": "2026-10-06T11:48:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}
